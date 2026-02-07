@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Forever Rose 🌹</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2b0f14, #5c1a22, #8a2a35);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            perspective: 1200px;
+        }
+
+        .flip-container {
+            cursor: pointer;
+        }
+
+        .flip-card {
+            width: 100%;
+            max-width: 720px;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+            position: relative;
+        }
+
+        .flip-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .card-front {
+            position: relative;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .photo {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .photo-text {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            margin-bottom: 1rem;
+        }
+
+        h1 span {
+            color: #ff8fa3;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            opacity: 0.95;
+        }
+
+        .rose {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .music {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ff6f91, #ff9671);
+            border: none;
+            color: #2b0f14;
+            padding: 0.75rem 1.6rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            opacity: 0.75;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        .petal {
+            position: fixed;
+            top: -10vh;
+            color: #ffb3c6;
+            font-size: 1.4rem;
+            animation: fall linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="flip-container" onclick="flipCard()">
+            <div class="flip-card" id="flipCard">
+
+                <!-- FRONT SIDE -->
+                <div class="card card-front">
+                    <div class="rose">🌹</div>
+                    <h1>You Are My <span>Forever Rose</span></h1>
+                    <p>
+                        Even with miles between us, your love reaches me before anything else.
+                        On this Rose Day, I don’t send you just a flower — I send you my heart,
+                        my patience, my loyalty, and my promise that no distance can fade what we share.
+                        <br><br>
+                        You are the rose that blooms quietly in my life every day,
+                        making everything softer, warmer, and more beautiful.
+                    </p>
+
+                    <div class="music">
+                        <span>🎵 Play our moment</span>
+                        <button onclick="event.stopPropagation(); toggleMusic()">Play / Pause Music</button>
+                        <audio id="bgMusic" loop>
+                            <source src="assests/love.mp3">
+                                type="audio/mpeg">
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- BACK SIDE -->
+                <div class="card card-back" onclick="event.stopPropagation(); flipCard()">
+                    <img src="assests/bhavya.jpeg" alt="My Rose" class="photo" />
+                    <p class="photo-text">I LOVE YOU MOST 💕</p>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <footer>
+        Made with endless love, just for you ❤️
+    </footer>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        function toggleMusic() {
+            if (music.paused) music.play();
+            else music.pause();
+        }
+
+        function flipCard() {
+            document.getElementById('flipCard').classList.toggle('flipped');
+        }
+
+        // Create falling petals
+        for (let i = 0; i < 18; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.textContent = '🌸';
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.animationDuration = 6 + Math.random() * 6 + 's';
+            petal.style.fontSize = 1 + Math.random() * 1.5 + 'rem';
+            document.body.appendChild(petal);
+        }
+    </script>
+
+</body>
+
+</html>
